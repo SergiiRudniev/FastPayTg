@@ -1,0 +1,38 @@
+syntax = "proto3";
+
+message DBRequestCreateNewUser {
+  string Id = 1;
+}
+
+message DBResponseCreateNewUser {
+  bool Status = 1;
+}
+
+message DBRequestGetBalance {
+  string Id = 1;
+}
+
+message DBResponseGetBalance {
+  bool Status = 1;
+  float Balance = 2;
+}
+
+message DBRequestSendMoney {
+  string Id = 1;
+  string RecipientId = 2;
+  int32 Money = 3;
+}
+
+message DBResponseSendMoney {
+  bool Status = 1;
+  string Error = 2;
+}
+
+
+
+
+service db {
+  rpc CreateNewUser(DBRequestCreateNewUser) returns (DBResponseCreateNewUser);
+  rpc GetBalance(DBRequestGetBalance) returns (DBResponseGetBalance);
+  rpc SendMoney(DBRequestSendMoney) returns (DBResponseSendMoney);
+}
