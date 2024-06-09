@@ -1,2 +1,3 @@
 class Text:
     MainMenuText = ''
+    MainButtonText = ''
