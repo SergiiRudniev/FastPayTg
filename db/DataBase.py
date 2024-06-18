@@ -1,5 +1,6 @@
 import pymongo
 import redis
+import logging
 
 class Database:
     def __init__(self, mongo_uri, redis_host, redis_port):
