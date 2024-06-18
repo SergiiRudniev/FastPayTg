@@ -1,7 +1,7 @@
 import grpc
 import db_pb2, db_pb2_grpc
 import cProfile
-
+import logging
 
 def run_client():
     channel = grpc.insecure_channel('localhost:5040')
