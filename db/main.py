@@ -2,6 +2,9 @@ import grpc
 import concurrent.futures
 import db_pb2, db_pb2_grpc
 from DataBase import Database
+import logging
+
+logger = logging.getLogger(__name__)
 
 mongo_uri = 'mongodb://mongodb:27017/'
 redis_host = 'redis'
