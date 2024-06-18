@@ -15,6 +15,7 @@ def run_client():
     response = stub.CreateNewUser(request)
 
     print("Результат:", response.Status)
+    print("Finish")
 
 if __name__ == '__main__':
     cProfile.run('run_client()')
