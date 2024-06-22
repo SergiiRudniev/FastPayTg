@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  redis:
+    image: "redis:latest"
+    ports:
+      - "6379:6379"
+
+  mongo:
+    image: "mongo:latest"
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+
+  api:
+    build: db
+    ports:
+      - "8000:80"
+    depends_on:
+      - redis
+      - mongo
+
+volumes:
+  mongo-data:
