@@ -13,13 +13,20 @@ services:
     volumes:
       - mongo-data:/data/db
 
-  api:
+  db:
     build: db
     ports:
-      - "8000:80"
+      - "9090:80"
     depends_on:
       - redis
       - mongo
+
+  api:
+    build: api
+    ports:
+      - "8000:80"
+    depends_on:
+      - db
 
 volumes:
   mongo-data:
