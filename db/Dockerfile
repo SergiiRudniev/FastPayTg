@@ -4,6 +4,6 @@ WORKDIR /app
 
 COPY ./app /app
 
-RUN pip install --no-cache-dir pymongo redis
+RUN pip install --no-cache-dir pymongo redis requests
 
 CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "80"]
