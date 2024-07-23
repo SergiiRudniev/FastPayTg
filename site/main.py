@@ -7,9 +7,21 @@ app = FastAPI()
 app.mount("/webapp/static", StaticFiles(directory="static"), name="static")
 
 
-@app.get("/webapp/")
+@app.get("/webapp/old/")
 async def get_index_html():
-    return FileResponse("static/index.html")
+    return FileResponse("static/old/index.html")
+
+@app.get("/webapp/new/")
+async def get_index_html():
+    return FileResponse("static/new/index.html")
+
+@app.get("/webapp/new/static/{file_name}")
+async def get_index_html(file_name: str):
+    return FileResponse(f"static/new/{file_name}")
+
+@app.get("/webapp/old/static/{file_name}")
+async def get_index_html(file_name: str):
+    return FileResponse(f"static/old/{file_name}")
 
 
 if __name__ == "__main__":
