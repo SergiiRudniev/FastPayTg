@@ -1,9 +1,13 @@
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from fastapi.middleware.cors import CORSMiddleware
-import requests
+from PaySystem import PaySystem
+from ApiDB import ApiDB
 
 app = FastAPI()
+pay_system = PaySystem()
+api_db = ApiDB()
+secret_key = "zxjkckOKASodlzxkcl,(!@9lskadlZ<X>C'lqwpel9102okLZXKCl,m.kALWKE(IPXZC:k;as,dlkkX(ZI("
 
 app.add_middleware(
     CORSMiddleware,
@@ -13,24 +17,23 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-class PayerId(BaseModel):
-    id: str
+class SendData(BaseModel):
+    PayerId: str
+    Amount: int
 
-@app.post("/api/pay/{recipient}")
-def set_value(recipient: int, PayerID: PayerId):
-    payerId = PayerID.id
-    return {"status": f"ok"}
+@app.post("/api/send/{recipient}")
+def Send(recipient: str, SendData: SendData):
+    response = pay_system.Send(recipient, SendData.PayerId, SendData.Amount)
+    if response == True:
+        return {"status": f"ok"}
+    raise HTTPException(status_code=403, detail="Pay Error")
 
 
 @app.get("/api/getbalance/{id}")
-def get_value(id: str):
-    response = requests.get(f"http://db/get/{id}")
-    if response.status_code == 404:
-        response = requests.post(f"http://db/set/{id}", json={"value": 0}, headers={"Content-Type": "application/json"})
-        response = requests.get(f"http://db/get/{id}")
-        data = response.json()
-        return data
-    else:
-        data = response.json()
-        return data
+def GetBalance(id: str):
+    return pay_system.GetBalance(id)
+
+@app.get("/api/secretapi/set/{id}/{amount}")
+def Set(id: str, amount: int):
+    return api_db.Set(id, amount)
 
