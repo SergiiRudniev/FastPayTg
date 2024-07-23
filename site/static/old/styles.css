@@ -1,0 +1,42 @@
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+.maintext {
+    color: #166bac;
+    margin-bottom: 15px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 100;
+    font-size: 100px;
+    text-align: center;
+}
+
+
+
+.secondtext {
+    text-align: center;
+}
+
+.divbutton {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+button {
+    background: #3498db;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+}
+
+button:hover {
+    background: #2980b9;
+}
