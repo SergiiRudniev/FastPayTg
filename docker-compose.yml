@@ -1,11 +1,6 @@
 version: '3.8'
 
 services:
-  redis:
-    image: "redis:latest"
-    ports:
-      - "6379:6379"
-
   mongo:
     image: "mongo:latest"
     ports:
@@ -13,10 +8,15 @@ services:
     volumes:
       - mongo-data:/data/db
 
+  redis:
+    image: "redis:latest"
+    ports:
+      - "6379:6379"
+    depends_on:
+      - mongo
+
   db:
     build: db
-    ports:
-      - "9090:80"
     depends_on:
       - redis
       - mongo
@@ -27,6 +27,19 @@ services:
       - "8000:80"
     depends_on:
       - db
+
+  website:
+    build: site
+    ports:
+      - "80:80"
+    depends_on:
+      - api
+
+  tgbot:
+    build: bot
+    depends_on:
+      - website
+
 
 volumes:
   mongo-data:
