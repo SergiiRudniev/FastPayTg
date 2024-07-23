@@ -1,0 +1,110 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background-color: #081b29;
+    color: #ededed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.boxWallet {
+    box-shadow: 0 0 10px rgba(0, 0, 0, .2);
+    background-color: #363945;
+    border: 2px solid black;
+    width: 100%;
+    max-width: 600px;
+    height: 80%;
+    max-height: 900px;
+    border-radius: 15px;
+    padding: 30px 40px;
+    position: relative;
+}
+
+#logo {
+    font-size: 21px;
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+}
+
+.fa-solid.fa-circle-user {
+    font-size: 40px;
+    position: absolute;
+    top: 10px;
+    left: 10px;
+}
+
+.secondtext {
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+}
+
+hr {
+    margin: 20px 0;
+}
+
+.id {
+    border: #363945 solid;
+}
+
+.balance {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 70px;
+    margin-top: 20px;
+}
+
+.myFunction {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin-top: 20px;
+}
+
+.myFunction a {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 500px;
+    height: 100px;
+    margin: 10px;
+    background: #00abf0;
+    border: 2px solid #00abf0;
+    border-radius: 15px;
+    font-size: 15px;
+    color: #081b29;
+    text-decoration: none;
+    font-weight: 600;
+    letter-spacing: 1px;
+    transition: background 0.3s;
+}
+
+.myFunction a:hover {
+    background: #2980b9;
+}
+
+@media (max-width: 768px) {
+    .myFunction a {
+        width: calc(50% - 20px);
+    }
+}
+
+@media (max-width: 480px) {
+    .myFunction a {
+        width: calc(100% - 20px);
+    }
+}
