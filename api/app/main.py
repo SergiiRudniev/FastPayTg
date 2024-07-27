@@ -2,11 +2,9 @@ from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from fastapi.middleware.cors import CORSMiddleware
 from PaySystem import PaySystem
-from ApiDB import ApiDB
 
 app = FastAPI()
 pay_system = PaySystem()
-api_db = ApiDB()
 secret_key = "zxjkckOKASodlzxkcl,(!@9lskadlZ<X>C'lqwpel9102okLZXKCl,m.kALWKE(IPXZC:k;as,dlkkX(ZI("
 
 app.add_middleware(
@@ -32,8 +30,4 @@ def Send(recipient: str, SendData: SendData):
 @app.get("/api/getbalance/{id}")
 def GetBalance(id: str):
     return pay_system.GetBalance(id)
-
-@app.get("/api/secretapi/set/{id}/{amount}")
-def Set(id: str, amount: int):
-    return api_db.Set(id, amount)
 
