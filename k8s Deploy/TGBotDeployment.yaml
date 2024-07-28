@@ -1,0 +1,17 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tgbot
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tgbot
+  template:
+    metadata:
+      labels:
+        app: tgbot
+    spec:
+      containers:
+      - name: tgbot
+        image: sergiirudniev/fastpaytgbot
