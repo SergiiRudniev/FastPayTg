@@ -14,12 +14,10 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-mongo_client = MongoClient("mongodb://mongo:27017")
+mongo_client = MongoClient("mongodb://mongo-service:27017")
 db = mongo_client["key_value_db"]
 collection = db["key_value_collection"]
-
 redis_client = redis.StrictRedis(host='redis', port=6379, db=0)
-
 
 class KeyValue(BaseModel):
     value: str
