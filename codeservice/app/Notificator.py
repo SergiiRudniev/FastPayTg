@@ -1,7 +1,7 @@
 import requests
 class Notificator:
     def __init__(self):
-        self.url = "notificator"
+        self.url = "notificator:80"
 
     def SendCode(self, id, code):
         data = {
