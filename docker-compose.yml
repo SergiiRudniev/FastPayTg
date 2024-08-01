@@ -3,39 +3,26 @@ version: '3.8'
 services:
   mongo:
     image: "mongo:latest"
-    ports:
-      - "27017:27017"
     volumes:
       - mongo-data:/data/db
 
   redis:
     image: "redis:latest"
-    ports:
-      - "6379:6379"
     depends_on:
       - mongo
 
   payment-code-redis:
     image: "redis:latest"
-    ports:
-      - "6379:6379"
 
   payment-request-redis:
     image: "redis:latest"
-    ports:
-      - "6379:6379"
 
   payment-processor:
     build: paymentprocessor
-    ports:
-      - 80:80
 
   rabbitmq:
     image: rabbitmq:3-management
     container_name: rabbitmq
-    environment:
-      - RABBITMQ_DEFAULT_USER=user
-      - RABBITMQ_DEFAULT_PASS=password
     ports:
       - "5672:5672"
       - "15672:15672"
@@ -50,20 +37,18 @@ services:
       - payment-code-redis
       - rabbitmq
     ports:
-      - 80:80
+      - "90:80"
 
   waiting_queue_money_transfer:
     build: WaitingQueueMoneyTransfer
-    ports:
-      - 80:80
 
   paymentprocessor:
     build: paymentprocessor
+    depends_on:
+      - rabbitmq
 
   notificator:
     build: notificator
-    ports:
-      - 80:80
 
 
   db:
@@ -90,8 +75,6 @@ services:
     build: bot
     depends_on:
       - website
-    ports:
-      - 80:80
 
 
 volumes:
