@@ -4,7 +4,7 @@ import requests
 import messagetext
 
 app = FastAPI()
-bot_ip = "tgbot"
+bot_ip = "tgbot:222"
 class SendCodeRequest(BaseModel):
     chat_id: int
     code: str
