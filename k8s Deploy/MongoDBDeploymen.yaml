@@ -26,20 +26,18 @@ spec:
           claimName: mongo-pvc
 
 ---
-
 apiVersion: v1
-kind: Service
+kind: PersistentVolume
 metadata:
-  name: mongo
+  name: mongo-pv
 spec:
-  ports:
-  - port: 27017
-    targetPort: 27017
-  selector:
-    app: mongo
-
+  accessModes:
+    - ReadWriteOnce
+  capacity:
+    storage: 10Gi
+  hostPath:
+    path: /mnt/data/mongo
 ---
-
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:

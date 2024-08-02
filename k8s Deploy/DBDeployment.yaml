@@ -17,16 +17,3 @@ spec:
         image: sergiirudniev/fastpaydb
         ports:
         - containerPort: 5432
-
----
-
-apiVersion: v1
-kind: Service
-metadata:
-  name: db
-spec:
-  ports:
-  - port: 5432
-    targetPort: 5432
-  selector:
-    app: db

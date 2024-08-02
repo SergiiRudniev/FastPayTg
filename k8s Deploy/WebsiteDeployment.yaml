@@ -17,16 +17,3 @@ spec:
         image: sergiirudniev/fastpaywebsite
         ports:
         - containerPort: 80
-
----
-
-apiVersion: v1
-kind: Service
-metadata:
-  name: website
-spec:
-  ports:
-  - port: 80
-    targetPort: 80
-  selector:
-    app: website
