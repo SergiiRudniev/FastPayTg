@@ -38,19 +38,21 @@ class CodeManager:
         try:
             code = self.__GenerateUniqueCode()
             response = self.__SetCode(id, code)
-            if response.get("status") == "ok":
-                Notificator.SendCode(id, code)
+            print("send code: ", code)
+            self.notificator.SendCode(id, code)
         except Exception as e:
+            print("Error: ", e)
             return {"Status": "error", "error": e}
 
-    def CheckCode(self, id, InputCode):
+    def CheckCode(self, id, InputCode) -> bool | dict:
         code, attempts = self.__GetCode(id)
         if code == InputCode:
             self.__DeleteCode(id)
             self.QueueClient.Confirmation(id)
-            return True
+            return {"Status:": "ok"}
 
         self.__AddAttempts(id)
         if (attempts + 1) >= 3:
             self.__DeleteCode(id)
             return {"Status:": "warning", "warning": "The code has expired"}
+        return {"Status:": "ErrorCode"}
