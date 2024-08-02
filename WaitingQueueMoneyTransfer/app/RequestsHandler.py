@@ -1,4 +1,5 @@
 import json
+import time
 
 import pika
 import redis
@@ -6,6 +7,7 @@ import redis
 
 class RequestsHandler:
     def __init__(self) -> None:
+        time.sleep(30)
         self.redis_client = redis.StrictRedis(host='payment-request-redis', port=6379, db=0)
         self.connection = pika.BlockingConnection(pika.ConnectionParameters('rabbitmq'))
         self.channel = self.connection.channel()

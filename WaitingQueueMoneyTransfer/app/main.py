@@ -18,6 +18,7 @@ app.add_middleware(
 class ConfirmationRequest(BaseModel):
     id: str
 
-@app.post("/confirmation")
-def confirmation(ConfirmationData: ConfirmationRequest):
-    requests_handler.Confirmation(ConfirmationData.id)
+@app.post("/confirmation/{_}")
+def confirmation(_, confirmation_data: ConfirmationRequest) -> dict:
+    requests_handler.Confirmation(confirmation_data.id)
+    return {"success": True}
