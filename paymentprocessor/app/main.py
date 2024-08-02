@@ -1,8 +1,11 @@
+import time
+
 import pika
 import json
 from PaySystem import PaySystem
 
-
+time.sleep(30)
+print("______________________Starting______________________")
 pay_system = PaySystem()
 def process_payment(ch, method, properties, body):
     message = json.loads(body.decode())
