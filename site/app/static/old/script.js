@@ -13,7 +13,6 @@ function fetchBalance() {
         })
         .then(data => {
             const responseDiv = document.getElementById('balance');
-
             responseDiv.innerHTML = `<h1 class="maintext">${data.value} $</h1>`;
         })
         .catch(error => {
@@ -27,16 +26,16 @@ function SendMoney() {
         alert('Cancel');
         return;
     }
-    let Amount = prompt('Enter amount', '');
-    if (Amount === null || Amount.trim() === '') {
+    let amount = prompt('Enter amount', '');
+    if (amount === null || amount.trim() === '') {
         alert('Cancel');
         return;
     }
     let SendUrl = `https://saved-surely-crane.ngrok-free.app/api/send/${recipient}`;
 
     const sendData = {
-        PayerId: tg.initDataUnsafe.user.id,
-        Amount: Amount
+        PayerId: tg.initDataUnsafe.user.id.toString(),
+        Amount: Number(amount)
     };
 
     fetch(SendUrl, {
@@ -54,29 +53,62 @@ function SendMoney() {
         }
         return response.json();
     })
-    .then(data => {
-        alert('Transaction status:', data.status);
-        let code = prompt('Enter code', '');
-        if (code === null || code.trim() === '') {
-            alert('Cancel');
-            return;
+    .then(() => {
+        let attempts = 0;
+        const maxAttempts = 3;
+
+        function requestCode() {
+            let inputcode = prompt('Enter code', '');
+            if (inputcode === null || inputcode.trim() === '') {
+                alert('Cancel');
+                return;
+            }
+
+            let SendCodeUrl = `https://saved-surely-crane.ngrok-free.app/api/check_code/${tg.initDataUnsafe.user.id}`;
+            const codeData = {
+                InputCode: String(inputcode)
+            };
+
+            fetch(SendCodeUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(codeData)
+            })
+            .then(response => response.json())
+            .then(responseData => {
+                if (responseData["Status:"] === "ok") {
+                    alert('Successfully!');
+                } else if (responseData["Status:"] === "warning") {
+                    alert('The code has expired. Attempts are closed.');
+                } else if (responseData["Status:"] === "ErrorCode") {
+                    attempts++;
+                    if (attempts < maxAttempts) {
+                        alert('Incorrect code. Please try again.');
+                        requestCode();
+                    } else {
+                        alert('The code has expired. Attempts are closed.');
+                    }
+                } else {
+                    throw new Error('Unknown error occurred.');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('An error occurred, please try again.');
+            });
         }
-        const sendData = {
-            code: tg.initDataUnsafe.user.id
-        };
-        fetch(SendUrl, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(sendData)
-        })
+
+        requestCode();
     })
     .catch(error => {
-        alert('There has been a problem with your fetch operation:', error);
+        console.error('There has been a problem with your fetch operation:', error);
+        alert('An error occurred, please try again.');
     });
 }
-fetchBalance()
+
+fetchBalance();
 setInterval(fetchBalance, 3000);
 
 let userid = document.getElementById('TextID');
