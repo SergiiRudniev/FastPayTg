@@ -25,11 +25,19 @@ class CodeManager:
             return {"status": "error", "error": e}
 
     def __AddAttempts(self, id):
-        self.redis_client.set(f"attempts_{id}", self.redis_client.get(f"attempts_{id}") + 1)
+        attempts_bytes = self.redis_client.get(f"attempts_{id}")
+
+        if attempts_bytes is not None:
+            attempts = int(attempts_bytes.decode('utf-8'))
+        else:
+            attempts = 0
+
+        attempts += 1
+
+        self.redis_client.set(f"attempts_{id}", str(attempts))
 
     def __GetCode(self, id):
-        return self.redis_client.get(f"code_{id}"), self.redis_client.get(f"attempts_{id}")
-
+            return self.redis_client.get(f"code_{id}"), self.redis_client.get(f"attempts_{id}")
     def __DeleteCode(self, id):
         self.redis_client.delete(f"code_{id}")
         self.redis_client.delete(f"attempts_{id}")
@@ -46,6 +54,11 @@ class CodeManager:
 
     def CheckCode(self, id, InputCode) -> bool | dict:
         code, attempts = self.__GetCode(id)
+        if code == None:
+            return {"Status:": "warning", "warning": "The code has expired"}
+        else:
+            code, attempts = code.decode(), int(attempts.decode())
+
         if code == InputCode:
             self.__DeleteCode(id)
             self.QueueClient.Confirmation(id)

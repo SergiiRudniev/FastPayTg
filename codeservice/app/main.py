@@ -21,7 +21,7 @@ class CheckCodeRequest(BaseModel):
 
 @app.post("/check_code/{id}")
 def check_code(id: str, check_code: CheckCodeRequest):
-    return code_manager.CheckCode(id, check_code)
+    return code_manager.CheckCode(id, check_code.input_code)
 
 
 @app.get("/create_code/{id}")
