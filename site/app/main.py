@@ -15,6 +15,10 @@ async def get_index_html():
 async def get_index_html():
     return FileResponse("static/new/index.html")
 
+@app.get("/webapp/new/send")
+async def get_index_html():
+    return FileResponse("static/new/Send.html")
+
 @app.get("/webapp/new/static/{file_name}")
 async def get_index_html(file_name: str):
     return FileResponse(f"static/new/{file_name}")

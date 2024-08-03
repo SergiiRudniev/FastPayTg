@@ -1,0 +1,613 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+*{
+    box-sizing: border-box;
+}
+
+body{
+    margin: 0;
+    background-color: #363945;
+    color: #ededed;
+    font-family: 'Poppins', sans-serif;
+}
+
+header{
+    text-align: center;
+    border: 2px solid #363945;
+    background-color: #00abf0;
+    width: 100%;
+    height: 100px;
+}
+h1 a{
+    text-align: center;
+    color: #ededed;
+    text-decoration: none;
+}
+.fa-solid.fa-house{
+    font-size: 38px;
+    position: absolute;
+    top: 10px;
+    left: 5px;
+    color: #fff;
+}
+.box{
+    text-align: center;
+    font-size: 30px;
+}
+.box h1{
+    margin-bottom: 50px;
+}
+.box h3{
+    font-size: 25px;
+    position: absolute;
+    top: 180px;
+    right: 50px;
+    left: 50px;
+}
+.container{
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+}
+.send{
+    position: absolute;
+    top: 350px;
+    width: 50%;
+    height: 45px;
+    background-color: #fff;
+    border: none;
+    border-radius: 40px;
+    box-shadow: 0 0 10px black;
+    cursor: pointer;
+    font-size: 16px;
+    color:  #333;
+    font-weight: 600;
+    transition: background 0.3s;
+}
+.id-container{
+    position: relative;
+    width: 400px;
+    left: 100px;
+}
+#input-field{
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%;
+    padding: 10px;
+    background: none;
+    outline: none;
+    border: 2px solid #00abf0;
+    border-radius: 4px;
+    color: #fff;
+    z-index: 2;
+    font-size: 15px;
+}
+.placeholder{
+    position: absolute;
+    font-size: 15px;
+    top: 10px; left: 10px;
+    color: #00abf0;
+    background-color: #363945;
+    padding: 0 5px;
+    transition: 0.2s;
+}
+
+.summ-container{
+    position: relative;
+    width: 400px;
+    left: 150px;
+}
+
+#summ-field{
+    position: absolute;
+    top: 0; left: 0;
+    width: 25%;
+    padding: 10px;
+    background: none;
+    outline: none;
+    border: 2px solid #00abf0;
+    border-radius: 4px;
+    color: #fff;
+    z-index: 2;
+    font-size: 15px;
+}
+
+.summ{
+    position: absolute;
+    font-size: 15px;
+    top: 9px; left: 100px;
+    color: #00abf0;
+    background-color: #363945;
+    padding: 0 5px;
+}
+
+.send:hover{
+    background-color: #cecece;
+}
+
+#input-field:focus + .placeholder,
+#input-field:valid + .placeholder{
+    top: -10px;
+    transform: scale(0.8);
+    color: #00abf0;
+    z-index: 4;
+}
+
+@media (max-width: 768px) {
+    header {
+        height: 80px;
+        font-size: 15px;
+        width: 100%;
+    }
+    header h1{
+        position: absolute;
+        right: 43%;
+    }
+
+    .fa-solid.fa-house{
+        font-size: 30px;
+    }
+
+    .box h1{
+        font-size: 40px;
+        position: absolute;
+        top: 50px;
+        right: 60px;
+        left: 10px;
+    }
+
+    .box h3 {
+        font-size: 18px;
+        top: 100px;
+        left: 10px;
+    }
+
+    .send {
+        width: 80%;
+        top: 250px;
+        left: 50px;
+    }
+
+    .id-container{
+        position: relative;
+        width: 50%;
+        left: 6%;
+        top: 10%;
+    }
+
+    .summ-container{
+        position: relative;
+        width: 40%;
+        left: 10%;
+        top: 10%;
+    }
+
+    .summ {
+        position: absolute;
+        left: 80px;
+    }
+}
+
+
+@media (max-width: 540px) {
+    header {
+        height: 80px;
+        font-size: 15px;
+        width: 100%;
+    }
+    header h1{
+        position: absolute;
+        right: 35%;
+        top: 0px;
+    }
+
+    .fa-solid.fa-house{
+        font-size: 30px;
+    }
+
+    .box h1{
+        font-size: 40px;
+        position: absolute;
+        top: 50px;
+        right: 30px;
+    }
+
+    .box h3 {
+        font-size: 18px;
+        top: 100px;
+        right: 15px;
+    }
+
+    .send {
+        width: 80%;
+        top: 250px;
+        left: 50px;
+    }
+
+    .id-container{
+        position: relative;
+        width: 50%;
+        left: 10%;
+        top: 13%;
+    }
+
+    .summ-container{
+        position: relative;
+        width: 40%;
+        left: 15%;
+        top: 13%;
+    }
+
+    .summ {
+        position: absolute;
+        left: 60px;
+    }
+}
+
+@media (max-width: 480px) {
+    header {
+        height: 80px;
+        font-size: 15px;
+        width: 100%;
+    }
+
+    header h1{
+        position: absolute;
+        right: 26%;
+        top: -0.1%;
+    }
+
+    .box h1{
+        font-size: 40px;
+        position: absolute;
+        top: 50px;
+        right: 30px;
+        left: 17px;
+    }
+
+    .box h3 {
+        font-size: 18px;
+        top: 100px;
+        left: 50px;
+    }
+
+    .send {
+        width: 90%;
+        top: 250px;
+        left: 15px;
+    }
+
+    .id-container{
+        position: relative;
+        width: 100%;
+        left: 8%;
+        top: 13%;
+    }
+
+    .summ-container{
+        position: relative;
+        width: 100%;
+        left: 18%;
+        top: 13%;
+    }
+
+    .summ {
+        position: absolute;
+        left: 50px;
+    }
+}
+@media (max-width: 414px){
+    header {
+        height: 80px;
+        font-size: 15px;
+        width: 100%;
+    }
+
+    header h1{
+        position: absolute;
+        right: 29%;
+        top: -0.1%;
+    }
+
+    .box h1{
+        font-size: 40px;
+        position: absolute;
+        top: 50px;
+        right: 27px;
+        left: 17px;
+    }
+
+    .box h3 {
+        font-size: 18px;
+        top: 100px;
+        left: 50px;
+    }
+
+    .send {
+        width: 90%;
+        top: 250px;
+        left: 15px;
+    }
+
+    .id-container{
+        position: relative;
+        width: 100%;
+        left: 8%;
+        top: 13%;
+    }
+
+    .summ-container{
+        position: relative;
+        width: 100%;
+        left: 18%;
+        top: 13%;
+    }
+
+    .summ {
+        position: absolute;
+        left: 50px;
+    }
+}
+@media (max-width: 412px){
+    header {
+        height: 80px;
+        font-size: 15px;
+        width: 100%;
+    }
+
+    header h1{
+        position: absolute;
+        right: 28%;
+        top: -0.1%;
+    }
+
+    .box h1{
+        font-size: 40px;
+        position: absolute;
+        top: 50px;
+        right: 25px;
+        left: 17px;
+    }
+
+    .box h3 {
+        font-size: 18px;
+        top: 100px;
+        left: 50px;
+    }
+
+    .send {
+        width: 90%;
+        top: 250px;
+        left: 15px;
+    }
+
+    .id-container{
+        position: relative;
+        width: 100%;
+        left: 8%;
+        top: 13%;
+    }
+
+    .summ-container{
+        position: relative;
+        width: 100%;
+        left: 18%;
+        top: 13%;
+    }
+
+    .summ {
+        position: absolute;
+        left: 50px;
+    }
+}
+@media (max-width: 430px){
+    header {
+        height: 80px;
+        font-size: 15px;
+        width: 100%;
+    }
+
+    header h1{
+        position: absolute;
+        right: 28%;
+        top: -0.1%;
+    }
+
+    .box h1{
+        font-size: 40px;
+        position: absolute;
+        top: 60px;
+        right: 25px;
+        left: 17px;
+    }
+
+    .box h3 {
+        font-size: 18px;
+        top: 115px;
+        left: 10px;
+    }
+
+    .send {
+        width: 90%;
+        top: 250px;
+        left: 15px;
+    }
+
+    .id-container{
+        position: relative;
+        width: 100%;
+        left: 8%;
+        top: 13%;
+    }
+
+    .summ-container{
+        position: relative;
+        width: 100%;
+        left: 18%;
+        top: 13%;
+    }
+
+    .summ {
+        position: absolute;
+        left: 50px;
+    }
+}
+@media (max-width: 375px){
+    header {
+        height: 80px;
+        font-size: 15px;
+        width: 100%;
+    }
+
+    header h1{
+        position: absolute;
+        right: 26%;
+        top: -0.1%;
+    }
+
+    .box h1{
+        font-size: 40px;
+        position: absolute;
+        top: 50px;
+        right: 50px;
+        left: 17px;
+    }
+
+    .box h3 {
+        font-size: 18px;
+        top: 100px;
+        left: 50px;
+    }
+
+    .send {
+        width: 90%;
+        top: 250px;
+        left: 15px;
+    }
+
+    .id-container{
+        position: relative;
+        width: 100%;
+        left: 8%;
+        top: 13%;
+    }
+
+    .summ-container{
+        position: relative;
+        width: 100%;
+        left: 18%;
+        top: 13%;
+    }
+
+    .summ {
+        position: absolute;
+        left: 50px;
+    }
+}
+@media (max-width: 390px){
+    header {
+        height: 80px;
+        font-size: 15px;
+        width: 100%;
+    }
+
+    header h1{
+        position: absolute;
+        right: 26%;
+        top: -0.1%;
+    }
+
+    .box h1{
+        font-size: 40px;
+        position: absolute;
+        top: 50px;
+        right: 25px;
+        left: 17px;
+    }
+
+    .box h3 {
+        font-size: 18px;
+        top: 100px;
+        left: 50px;
+    }
+
+    .send {
+        width: 90%;
+        top: 250px;
+        left: 15px;
+    }
+
+    .id-container{
+        position: relative;
+        width: 100%;
+        left: 8%;
+        top: 13%;
+    }
+
+    .summ-container{
+        position: relative;
+        width: 100%;
+        left: 18%;
+        top: 13%;
+    }
+
+    .summ {
+        position: absolute;
+        left: 50px;
+    }
+}
+
+@media (max-width: 320px){
+    header {
+        height: 80px;
+        font-size: 15px;
+        width: 100%;
+    }
+
+    header h1{
+        position: absolute;
+        right: 23%;
+        top: -0.1%;
+    }
+
+    .box h1{
+        font-size: 40px;
+        position: absolute;
+        top: 60px;
+        right: 25px;
+        left: 17px;
+    }
+
+    .box h3 {
+        font-size: 18px;
+        top: 115px;
+        left: 10px;
+    }
+
+    .send {
+        width: 90%;
+        top: 250px;
+        left: 15px;
+    }
+
+    .id-container{
+        position: relative;
+        width: 100%;
+        left: 8%;
+        top: 13%;
+    }
+
+    .summ-container{
+        position: relative;
+        width: 100%;
+        left: 18%;
+        top: 13%;
+    }
+
+    .summ {
+        position: absolute;
+        left: 50px;
+    }
+}
+
+

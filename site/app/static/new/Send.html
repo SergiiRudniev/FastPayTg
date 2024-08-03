@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FastPay | Send</title>
+    <link rel="stylesheet" href="static/Send.css">
+    <script src="https://kit.fontawesome.com/ae13163e65.js" crossorigin="anonymous"></script>
+    <style>
+        /* Стили для модального окна */
+        .modal {
+            display: none; /* Скрыть модальное окно по умолчанию */
+            position: fixed;
+            z-index: 99999;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.5); /* Черный фон с прозрачностью */
+        }
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto; /* Центрирование модального окна */
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 400px; /* Максимальная ширина */
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+            animation: fadeIn 0.5s; /* Анимация появления */
+            border-radius: 10px;
+        }
+        @keyframes fadeIn {
+            from {opacity: 0;}
+            to {opacity: 1;}
+        }
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .close:hover,
+        .close:focus {
+            color: #000;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .modal-input {
+            width: 100%;
+            padding: 12px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+        .modal-button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px;
+        }
+        .modal-button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1><a href="send">FastPayTg.</a></h1>
+        <a href="/webapp/new"><i class="fa-solid fa-house"></i></a>
+    </header>
+    <div class="box">
+        <h1>Send to id</h1>
+        <h3 id="balance">Your balance: 0$</h3>
+    </div>
+    <div class="container" id="myContainer">
+        <div class="id-container" id="myIdContainer">
+            <input type="text" id="input-field" required placeholder="Recipient ID">
+            <label class="placeholder">Id</label>
+        </div>
+        <div class="summ-container" id="mySummContainer">
+            <input type="text" id="summ-field" required placeholder="Amount">
+            <label class="summ">$</label>
+        </div>
+        <button id="Send" class="send" onclick="sendMoney()">Send</button>
+    </div>
+    <div id="codeModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Enter Verification Code</h2>
+            <input type="text" id="codeInput" class="modal-input" placeholder="Enter your code here">
+            <button id="submitCode" class="modal-button">Submit</button>
+        </div>
+    </div>
+    <script src="static/Send.js"></script>
+</body>
+</html>
