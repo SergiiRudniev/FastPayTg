@@ -4,6 +4,6 @@ WORKDIR /app
 
 COPY ./app /app
 
-RUN pip install --no-cache-dir aiogram python-dotenv
+RUN pip install --no-cache-dir fastapi uvicorn gunicorn aiogram python-dotenv
 
 CMD ["python", "main.py"]
