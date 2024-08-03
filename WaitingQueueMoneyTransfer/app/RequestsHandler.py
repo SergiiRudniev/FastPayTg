@@ -1,35 +1,26 @@
-import json
-import time
-
-import pika
+from tasks import add_to_queue
 import redis
-
+import logging
 
 class RequestsHandler:
     def __init__(self) -> None:
-        time.sleep(30)
         self.redis_client = redis.StrictRedis(host='payment-request-redis', port=6379, db=0)
-        self.connection = pika.BlockingConnection(pika.ConnectionParameters('rabbitmq'))
-        self.channel = self.connection.channel()
-        self.channel.queue_declare(queue='ready_to_process')
 
-    def __ParsePaymentData(self, data: str) -> dict:
-        RawData = data.split("-")
-        return {"recipient_id": RawData[0], "Amount": RawData[1], "Payerid": RawData[2]}
+    def _parse_payment_data(self, data: str) -> dict:
+        raw_data = data.split("-")
+        return {
+            "recipient_id": raw_data[0],
+            "Amount": raw_data[1],
+            "Payerid": raw_data[2]
+        }
 
-    def __SendDataToQueue(self, data: dict) -> None:
-        message = json.dumps({
-            "recipient_id": data.get("recipient_id"),
-            "Amount": data.get("Amount"),
-            "Payerid": data.get("Payerid")
-        })
-        self.channel.basic_publish(exchange='', routing_key='ready_to_process', body=message)
-
-    def Confirmation(self, PayerId: str) -> dict:
+    def _send_data_to_queue(self, data: dict) -> None:
         try:
-            PayData = self.__ParsePaymentData(self.redis_client.get(PayerId))
-            self.redis_client.delete(PayerId)
-            self.__SendDataToQueue(PayData)
-            return {"status": f"ok"}
+            add_to_queue.delay(data)
         except Exception as e:
-            return {"status": "error", "error": e}
+            logging.error(e)
+    def confirmation(self, payer_id: str) -> dict:
+        pay_data = self._parse_payment_data(self.redis_client.get(payer_id).decode())
+        self._send_data_to_queue(pay_data)
+        self.redis_client.delete(payer_id)
+        return {"status": "ok"}
