@@ -11,6 +11,7 @@ class SendCodeRequest(BaseModel):
 
 @app.post("/send_code")
 async def send_code(request: SendCodeRequest):
+    print('New Requests')
     url = f"http://{bot_ip}/send_message"
     data = {
         "chat_id": request.chat_id,
