@@ -2,8 +2,8 @@ FROM python:3.12-slim
 
 WORKDIR /app
 
-COPY ./app /app
+COPY . /app
 
-RUN pip install --no-cache-dir requests pika
+RUN pip install --no-cache-dir redis celery requests
 
-CMD ["python", "main.py"]
+CMD ["celery", "-A", "tasks", "worker", "--loglevel=info"]
