@@ -2,6 +2,7 @@ from fastapi import FastAPI, HTTPException
 from pymongo import MongoClient
 import redis
 from pydantic import BaseModel
+import DataClass
 from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
@@ -19,11 +20,8 @@ db = mongo_client["key_value_db"]
 collection = db["key_value_collection"]
 redis_client = redis.StrictRedis(host='redis', port=6379, db=0)
 
-class KeyValue(BaseModel):
-    value: str
-
 @app.post("/set/{key}")
-def set_value(key: str, key_value: KeyValue):
+def set_value(key: str, key_value: DataClass.KeyValue):
     value = key_value.value
     collection.update_one({"key": key}, {"$set": {"value": value}}, upsert=True)
     redis_client.set(key, value, ex=60)
