@@ -1,5 +1,5 @@
 import asyncio
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI
 from pydantic import BaseModel
 from dotenv import load_dotenv
 from os import getenv
@@ -10,7 +10,8 @@ from aiogram.client.default import DefaultBotProperties
 from aiogram.enums import ParseMode
 from aiogram.filters import CommandStart
 from aiogram.types import Message
-from aiogram import types
+from Bot import Bot as AnswerBot
+import DataClass
 
 load_dotenv()
 logging.basicConfig(level=logging.INFO, stream=sys.stdout)
@@ -19,23 +20,18 @@ logger = logging.getLogger(__name__)
 bot = None
 dp = Dispatcher()
 app = FastAPI()
-
-class SendMessageRequest(BaseModel):
-    chat_id: int
-    message: str
+answer_bot = AnswerBot(logger)
 
 @app.post("/send_message")
-async def send_message(request: SendMessageRequest):
+async def send_message(request: DataClass.SendMessageRequest):
     try:
-        await bot.send_message(chat_id=request.chat_id, text=request.message)
-        return {"status": "success", "message": "Message sent"}
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+        await answer_bot.SendMessageFromApi(request, bot)
+    except BaseException as e:
+        print(e)
 
 @dp.message(CommandStart())
 async def command_start_handler(message: Message) -> None:
-    logger.info(f"Start Command user: {message.from_user.id}")
-    await message.answer(f"Для запуска нажми \"FastPay\"")
+    await answer_bot.CommandStartHandler(message)
 
 async def start_bot():
     global bot
