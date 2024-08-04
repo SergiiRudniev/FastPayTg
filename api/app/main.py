@@ -1,18 +1,19 @@
-import requests
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
-from pydantic import BaseModel
 
+import DataClass
 import config
+from ApiDB import ApiDB
+from CodeApi import CodeApi
 from PaySystem import PaySystem
 from WaitingPayment import WaitingPayment
-from ApiDB import ApiDB
 
 app = FastAPI()
 pay_system = PaySystem()
 waiting_payment = WaitingPayment()
-secret_key = "zxjkckOKASodlzxkcl,(!@9lskadlZ<X>C'lqwpel9102okLZXKCl,m.kALWKE(IPXZC:k;as,dlkkX(ZI("
 api_db = ApiDB()
+code_api = CodeApi(config.codeservice_url)
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -22,24 +23,21 @@ app.add_middleware(
 )
 
 
-class SendDataRequest(BaseModel):
-    PayerId: str
-    Amount: int
-
-
-class CheckCodeRequest(BaseModel):
-    InputCode: str
-
-
 @app.post("/api/send/{recipient_id}")
-def send(recipient_id: str, SendData: SendDataRequest) -> dict:
+def send(recipient_id: str, SendData: DataClass.SendDataRequest) -> dict:
+    print("____send_requests____")
     try:
+        print("_____add__pending_____")
         waiting_payment.AddPending(recipient_id, SendData.Amount, SendData.PayerId)
-        requests.get(f"http://{config.codeservice_url}/create_code/{SendData.PayerId}")
+        print("_____Create_Code_____")
+        code_api.CreateCode(SendData.PayerId)
+        print("____return____")
         return {"status": f"ok"}
     except Exception as e:
+        print("____error____")
         print(e)
         raise HTTPException(status_code=403, detail="Pay Error")
+
 
 @app.get("/api/getbalance/{id}")
 def get_balance(id: str) -> dict | None:
@@ -47,13 +45,10 @@ def get_balance(id: str) -> dict | None:
 
 
 @app.post("/api/check_code/{id}")
-def check_code(id: str, CheckCode: CheckCodeRequest) -> dict:
-    data = {
-        "input_code": CheckCode.InputCode
-    }
-    response = requests.post(f"http://{config.codeservice_url}/check_code/{id}", json=data)
-    return response.json()
+def check_code(id: str, CheckCode: DataClass.CheckCodeRequest) -> dict:
+    return code_api.CheckCode(id, CheckCode.InputCode).json()
 
-@app.get("/api/setmoney/{id}/{amount}")
+
+@app.get("/api/setmoney/{id}/{amount}")  # For Test
 def setmoney(id: str, amount: str):
     api_db.Set(id, amount)
