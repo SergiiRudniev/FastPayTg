@@ -1,26 +1,20 @@
-from fastapi import FastAPI, HTTPException
-from pydantic import BaseModel
-import requests
+from fastapi import FastAPI
+import DataClass
+from BotApi import BotApi
+import config
 import messagetext
 
 app = FastAPI()
-bot_ip = "tgbot:222"
-class SendCodeRequest(BaseModel):
-    chat_id: int
-    code: str
+bot_api = BotApi(config.bot_ip)
 
 @app.post("/send_code")
-async def send_code(request: SendCodeRequest):
-    print('New Requests')
-    url = f"http://{bot_ip}/send_message"
-    data = {
-        "chat_id": request.chat_id,
-        "message": messagetext.SendCode(request.code)
-    }
+async def send_code(request: DataClass.SendCodeRequest):
+    return bot_api.SendMessage(request, messagetext.SendCode(request.code))
 
-    response = requests.post(url, json=data)
+@app.post("/successfully_money_transfer")
+async def successfully_money_transfer(request: DataClass.SuccessfullyMoneyTransferRequest):
+    return bot_api.SendMessage(request, messagetext.SuccessfullyMoneyTransfer(request.recipient_id, request.amount))
 
-    if response.status_code == 200:
-        return "ok"
-    else:
-        raise HTTPException(status_code=500)
+@app.post("/unsuccessfully_money_transfer")
+async def unsuccessfully_money_transfer(request: DataClass.UnsuccessfullyMoneyTransferRequest):
+    return bot_api.SendMessage(request, messagetext.UnsuccessfullyMoneyTransfer(request.recipient_id, request.amount))

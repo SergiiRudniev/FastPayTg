@@ -1,0 +1,1 @@
+bot_ip = "tgbot:222"
