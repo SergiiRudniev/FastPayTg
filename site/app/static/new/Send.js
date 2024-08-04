@@ -87,6 +87,9 @@ if (typeof window.Telegram !== 'undefined' && typeof window.Telegram.WebApp !== 
         // Показать модальное окно
         modal.style.display = 'block';
 
+        // Очистка поля ввода кода
+        codeInput.value = '';
+
         // Обработчик закрытия модального окна
         closeButton.onclick = function() {
             modal.style.display = 'none';
@@ -130,15 +133,19 @@ if (typeof window.Telegram !== 'undefined' && typeof window.Telegram.WebApp !== 
         .then(responseData => {
             if (responseData["Status:"] === "ok") {
                 alert('Successfully!');
+                // Закрытие модального окна после успешной проверки
+                document.getElementById('codeModal').style.display = 'none';
             } else if (responseData["Status:"] === "warning") {
                 alert('The code has expired. Attempts are closed.');
+                // Закрытие модального окна при истекшем коде
+                document.getElementById('codeModal').style.display = 'none';
             } else if (responseData["Status:"] === "ErrorCode") {
                 alert('Incorrect code. Please try again.');
+                // Повторное открытие модального окна при неправильном коде
+                openCodeModal();
             } else {
                 throw new Error('Unknown error occurred.');
             }
-            // Закрытие модального окна после проверки
-            document.getElementById('codeModal').style.display = 'none';
         })
         .catch(error => {
             console.error('Error:', error);
@@ -146,17 +153,8 @@ if (typeof window.Telegram !== 'undefined' && typeof window.Telegram.WebApp !== 
         });
     }
 
-    // Получение баланса при загрузке и установка интервала обновления каждые 3 секунды
     fetchBalance();
     setInterval(fetchBalance, 3000);
-
-    // Добавление обработчика события для кнопки отправки
-    document.addEventListener('DOMContentLoaded', () => {
-        const sendButton = document.getElementById('Send');
-        if (sendButton) {
-            sendButton.addEventListener('click', sendMoney);
-        }
-    });
 } else {
     console.error("Telegram WebApp is not available.");
     alert("This feature is only available within the Telegram WebApp.");
