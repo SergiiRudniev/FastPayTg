@@ -37,7 +37,8 @@ class CodeManager:
         self.redis_client.set(f"attempts_{id}", str(attempts))
 
     def __GetCode(self, id):
-            return self.redis_client.get(f"code_{id}"), self.redis_client.get(f"attempts_{id}")
+        return self.redis_client.get(f"code_{id}"), self.redis_client.get(f"attempts_{id}")
+
     def __DeleteCode(self, id):
         self.redis_client.delete(f"code_{id}")
         self.redis_client.delete(f"attempts_{id}")
@@ -56,8 +57,8 @@ class CodeManager:
         code, attempts = self.__GetCode(id)
         if code == None:
             return {"Status:": "warning", "warning": "The code has expired"}
-        else:
-            code, attempts = code.decode(), int(attempts.decode())
+
+        code, attempts = code.decode(), int(attempts.decode())
 
         if code == InputCode:
             self.__DeleteCode(id)

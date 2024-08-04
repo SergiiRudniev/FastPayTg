@@ -1,4 +1,6 @@
 import requests
+
+
 class Notificator:
     def __init__(self):
         self.url = "notificator:345"
