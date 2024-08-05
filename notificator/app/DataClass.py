@@ -13,3 +13,8 @@ class UnsuccessfullyMoneyTransferRequest(BaseModel):
     chat_id: int
     amount: int
     recipient_id: int
+
+class ReceivingTheMoneyRequest(BaseModel):
+    chat_id: int
+    amount: int
+    recipient_id: int

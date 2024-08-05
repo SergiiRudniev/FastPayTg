@@ -6,3 +6,8 @@ def SuccessfullyMoneyTransfer(recipientId, Amount):
 
 def UnsuccessfullyMoneyTransfer(recipientId, Amount):
     return f"The transaction was completed unsuccessfully! Recipient: {recipientId} | Amount: {Amount}"
+
+def ReceivingTheMoney(Amount, RecipientId):
+    return f"You were credited with funds in the amount {Amount} from {RecipientId}"
+
+

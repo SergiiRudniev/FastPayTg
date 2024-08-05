@@ -18,3 +18,8 @@ async def successfully_money_transfer(request: DataClass.SuccessfullyMoneyTransf
 @app.post("/unsuccessfully_money_transfer")
 async def unsuccessfully_money_transfer(request: DataClass.UnsuccessfullyMoneyTransferRequest):
     return bot_api.SendMessage(request, messagetext.UnsuccessfullyMoneyTransfer(request.recipient_id, request.amount))
+
+
+@app.post("/receiving_the_money")
+async def receiving_the_money(request: DataClass.ReceivingTheMoneyRequest):
+    return bot_api.SendMessage(request, messagetext.ReceivingTheMoney(request.amount, request.recipient_id))
