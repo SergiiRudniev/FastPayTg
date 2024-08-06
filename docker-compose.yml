@@ -5,9 +5,13 @@ services:
     image: "mongo:latest"
     volumes:
       - mongo-data:/data/db
+    ports:
+      - "27017:27017"
 
   redis:
     image: "redis:latest"
+    ports:
+      - "6379:6379"
     depends_on:
       - mongo
 
@@ -17,39 +21,40 @@ services:
   payment-request-redis:
     image: "redis:latest"
 
+  payment-queue-redis:
+    image: "redis:latest"
+
   payment-processor:
     build: paymentprocessor
-
-  rabbitmq:
-    image: rabbitmq:3-management
-    container_name: rabbitmq
-    ports:
-      - "5672:5672"
-      - "15672:15672"
-    volumes:
-      - rabbitmq_data:/var/lib/rabbitmq
-
-
 
   codeservice:
     build: codeservice
     depends_on:
       - payment-code-redis
-      - rabbitmq
+      - payment-queue-redis
     ports:
-      - "90:80"
+      - "90:90"
 
   waiting_queue_money_transfer:
     build: WaitingQueueMoneyTransfer
+    restart: always
+    ports:
+      - "999:999"
+    depends_on:
+      - payment-queue-redis
 
   paymentprocessor:
     build: paymentprocessor
+    restart: always
     depends_on:
-      - rabbitmq
+      - payment-queue-redis
 
   notificator:
     build: notificator
-
+    ports:
+      - "345:345"
+    depends_on:
+      -  tgbot
 
   db:
     build: db
@@ -60,19 +65,21 @@ services:
   api:
     build: api
     ports:
-      - "8000:80"
+      - "6000:80"
     depends_on:
       - db
 
   website:
     build: site
     ports:
-      - "80:80"
+      - "8000:80"
     depends_on:
       - api
 
   tgbot:
     build: bot
+    ports:
+      - "222:222"
     depends_on:
       - website
 
