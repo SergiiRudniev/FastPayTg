@@ -21,3 +21,11 @@ class Notificator:
         }
         requests.post(f"http://{self.url}/unsuccessfully_money_transfer", json=data)
 
+    def SendReceivingTheMoney(self, chat_id, amount, recipient_id):
+        data = {
+            "chat_id": chat_id,
+            "amount": amount,
+            "recipient_id": recipient_id
+
+        }
+        requests.post(f"http://{self.url}//receiving_the_money", json=data)

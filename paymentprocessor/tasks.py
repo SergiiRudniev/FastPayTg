@@ -14,6 +14,7 @@ def add_to_queue(data):
         response = pay_system.Send(str(data.get("recipient_id")), str(data.get("Payerid")), int(data.get("Amount")))
         if response != None:
             notificator.SendSuccessfullyMoneyTransfer(int(data.get("Payerid")), int(data.get("Amount")), int(data.get("recipient_id")))
+            notificator.SendReceivingTheMoney(int(data.get("Payerid")), int(data.get("Amount")), int(data.get("recipient_id")))
         else:
             notificator.SendUnsuccessfullyMoneyTransfer(int(data.get("Payerid")), int(data.get("Amount")),
                                                         int(data.get("recipient_id")))
