@@ -24,6 +24,9 @@ services:
   payment-queue-redis:
     image: "redis:latest"
 
+  pdfcreator-queue-redis:
+    image: "redis:latest"
+
   payment-processor:
     build: paymentprocessor
 
