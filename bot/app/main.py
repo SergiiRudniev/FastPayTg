@@ -1,5 +1,5 @@
 import asyncio
-from fastapi import FastAPI
+from fastapi import FastAPI, UploadFile, File
 from pydantic import BaseModel
 from dotenv import load_dotenv
 from os import getenv
@@ -20,7 +20,7 @@ logger = logging.getLogger(__name__)
 bot = None
 dp = Dispatcher()
 app = FastAPI()
-answer_bot = AnswerBot(logger)
+answer_bot = AnswerBot(logger, bot)
 
 @app.post("/send_message")
 async def send_message(request: DataClass.SendMessageRequest):
@@ -28,6 +28,10 @@ async def send_message(request: DataClass.SendMessageRequest):
         await answer_bot.SendMessageFromApi(request, bot)
     except BaseException as e:
         print(e)
+
+@app.post("/upload/{id}")
+async def upload_file(id: str, file: UploadFile = File(...)):
+    await answer_bot.SendFile(id, file)
 
 @dp.message(CommandStart())
 async def command_start_handler(message: Message) -> None:
