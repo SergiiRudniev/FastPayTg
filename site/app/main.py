@@ -7,9 +7,6 @@ app = FastAPI()
 app.mount("/webapp/static", StaticFiles(directory="static"), name="static")
 
 
-@app.get("/webapp/old/")
-async def get_index_html():
-    return FileResponse("static/old/index.html")
 
 @app.get("/webapp/new/")
 async def get_index_html():
@@ -27,6 +24,9 @@ async def get_index_html(file_name: str):
 async def get_index_html(file_name: str):
     return FileResponse(f"static/old/{file_name}")
 
+@app.get("/webapp/old/")
+async def get_index_html():
+    return FileResponse("static/old/index.html")
 
 if __name__ == "__main__":
     import uvicorn

@@ -1,102 +1,107 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
 * {
-    margin: 0;
-    padding: 0;
     box-sizing: border-box;
     font-family: 'Poppins', sans-serif;
 }
 
-body {
+body{
+    margin: 0;
     background-color: #363945;
     color: #ededed;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-    width: 100%;
-    overflow: hidden;
-    padding: 20px;
+    font-family: 'Poppins', sans-serif;
 }
 
-.boxWallet {
-    box-shadow: 0 0 10px rgba(0, 0, 0, .2);
-    background-color: #363945;
+.header{
+    text-align: center;
+    text-align: center;
     border: 2px solid #363945;
-    top: 0;
-    left: 0;
     width: 100%;
-    height: 100%;
-    border-radius: 15px;
-    padding: 30px 40px;
-    position: absolute;
+    height: 100px;
 }
 
-#logo {
-    font-size: 21px;
-    position: absolute;
-    bottom: 10px;
-    right: 10px;
+.header h1{
+    font-size: 5vw;
 }
 
-.fa-solid.fa-circle-user {
-    font-size: 38px;
+.fa-solid.fa-house{
+    font-size: 33px;
     position: absolute;
-    top: 10px;
+    top: 13px;
     left: 5px;
     color: #fff;
 }
-
-.secondtext {
-    position: absolute;
-    top: 0px;
-    left: 50%;
-    transform: translateX(-50%);
-    text-align: center;
-    font-size: 5vw
-}
-
-hr {
-    margin: 20px 0;
-}
-
-.id {
-    border: #363945 solid;
-}
-
-.balance h2{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 15vw;
-    max-width: 100%;
-    overflow-wrap: break-word;
-    word-wrap: break-word;
-    word-break: break-all;
-    hyphens: auto;
-    margin-top: 20px;
-}
-
 
 .myFunction {
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
     margin-top: 20px;
+    z-index: 1;
+    overflow: hidden;
 }
 
 
+.myFunction h1{
+    position: absolute;
+    margin-top: 1px;
+    margin-left: 130px;
+    font-size: 5vw;
+}
+
+#Sent{
+    position: absolute;
+    font-size: 5vw;
+    margin-top: 1px;
+    margin-left: 165px;
+}
+
+#Received{
+    position: absolute;
+    font-size: 5vw;
+    margin-top: 1px;
+    margin-left: 145px;
+}
+
+#Error2{
+    position: absolute;
+    font-size: 5vw;
+    margin-top: 1px;
+    margin-left: 170px;
+}
+
+#Error h2{
+    position: absolute;
+    font-size: 4vw;
+    left: -10%;
+}
+
+.myFunction h2{
+    position: absolute;
+    margin-top: 25px;
+    margin-left: 150px;
+    font-size: 5vw;
+}
+
+
+.myFunction i{
+    position: absolute;
+    margin-top: 15px;
+    margin-left: 15px;
+    font-size: 40px;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
 .myFunction a {
     display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    width: 500px;
-    height: 100px;
+    width: 350px;
+    height: 80px;
     margin: 10px;
-    background: #00abf0;
+    background: transparent;
     border: 2px solid #00abf0;
     border-radius: 15px;
-    font-size: 15px;
     color: #081b29;
     text-decoration: none;
     font-weight: 600;
@@ -104,13 +109,16 @@ hr {
     transition: background 0.3s;
 }
 
-.myFunction a:hover {
-    background: #2980b9;
+.transHistory{
+    position: absolute;
+    margin-top: 40%;
+    text-align: center;
 }
+
 
 @media (max-width: 375px){
     .myFunction a {
-        height: 50px;
+        height: 70px;
     }
 }
 
@@ -144,4 +152,5 @@ hr {
         width: calc(100% - 20px);
     }
 }
+
 
